@@ -6,4 +6,4 @@
 点击左边按钮，切换到上一张  
 点击右边按钮，切换到下一张  
 
-访问链接：[图片切换]()
+访问链接：[图片切换](https://xyumin.github.io/js_picturesToggle/)
