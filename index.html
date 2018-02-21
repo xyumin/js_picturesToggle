@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片切换</title>
+	<style type="text/css">
+		body,div,img,p,input {
+			margin:0;
+			padding: 0;
+		}
+		img {
+			border:none;
+		}
+		input {
+			border:none;
+			outline: none;
+		}
+		a {
+			text-decoration: none;
+		}
+		body {
+			font-size: 16px;
+		}
+		.wrap {
+			width:440px;
+			height: 510px;
+			margin:0 auto;
+			margin-top:10px;
+		}
+		p {
+			text-align: center;
+		}
+		input {
+			width:66px;
+			height:20px;
+			line-height: 20px;
+			font-size: 12px;
+			color:#000;
+			background: url("img/btn.png") no-repeat ;
+		}
+		#loop {
+			margin-right: 14px;
+		}
+		#function_description {
+			margin-top: 20px;
+		}
+		.img_box {
+			width:400px;
+			height:400px;
+			margin:0 auto;
+			margin-top: 17px;
+			border:10px solid #c6c6c6;
+			position: relative;
+		}
+		.img_box img {
+			width:400px;
+			height:400px;
+		}
+		#num ,#pic_description {
+			position: absolute;
+			left:0;
+			right:0;
+			height:30px;
+			line-height: 30px;
+			background-color: #000;
+			opacity: 0.8;
+			filter:alpha(opacity:80);
+			color:#fff;
+			text-align: center;
+		}
+		#num {
+			top:0;
+		}
+		#pic_description {
+			bottom: 0;
+		}
+		#prev , #next {
+			position: absolute;
+			top: 180px;
+			width:40px;
+			height:40px;
+			line-height: 40px;
+			text-align: center;
+			color:#a5a5b5;
+			background: #decec6;
+		}
+		#prev {
+			left: 10px;
+		}
+		#next {
+			right:10px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var aBtn=document.getElementsByTagName('input');
+			var oText=getById('function_description');
+			var oPic=getById('pic');
+			var oNum =getById('num');
+			var oPrev=getById('prev');
+			var oNext=getById('next');
+			var oDes=getById('pic_description');
+
+			var urlArr=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+			var textArr=['文字描述一','文字描述二','文字描述三','文字描述四'];
+			var num=0;
+			var onOff=true;
+
+			aBtn[0].onclick=function(){
+				oText.innerHTML='图片可以从最后一张跳转到第一张循环切换';
+				onOff=true;
+			}
+			aBtn[1].onclick=function(){
+				oText.innerHTML='图片只能到最后一张或只能到第一张切换';
+				onOff=false;
+			}
+			
+			//初始化
+			function initial(){
+				oPic.src=urlArr[num];
+				oNum.innerHTML=num+1+'/'+urlArr.length;
+				oDes.innerHTML=textArr[num];
+			}
+			initial();
+
+			oPrev.onclick=function(){
+				num--;
+				if(num==-1){
+					if(!onOff){
+						alert('这已经是第一张了，不能再往前了~~');
+						num=0;
+					}else{
+						num=urlArr.length-1;
+					}
+				}
+				initial();
+			}
+			oNext.onclick=function(){
+				num++;
+				if(num==urlArr.length){
+					if(!onOff){
+						alert('已经到最后一张啦~');
+						num=urlArr.length-1;
+					}else{
+						num=0;
+					}
+				}
+				initial();
+			}
+
+			function getById(id){
+				return document.getElementById(id);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<p><input type="button" name="loop" id="loop" value="循环切换"><input type="button" name="order" id="order" value="顺序切换"></p>
+		<p id="function_description">图片可以从最后一张跳转到第一张循环切换</p>
+		<div class="img_box">
+			<img id="pic">
+			<p id="num">数据正在加载中</p>
+			<a href="#" id="prev">&lt;</a><a href="#" id="next">&gt;</a>
+			<p id="pic_description">文字正在加载中</p>
+		</div>
+	</div>
+	
+</body>
+</html>
